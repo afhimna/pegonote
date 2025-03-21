@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEGONOTE</title>
+    <style>
+        @font-face {
+            font-family: 'Amiri';
+            src: url('Amiri-Regular.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Amiri', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        #tahrik-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .toolbar-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+        }
+
+        .toolbar button {
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .toolbar button:hover {
+            background: #1abc9c;
+        }
+
+        .notepad {
+            width: 90%;
+            max-width: 800px;
+            height: 150px;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 40px;
+            direction: rtl;
+            text-align: right;
+            background: white;
+            border: 1px solid #ccc;
+            outline: none;
+            resize: none;
+            line-height: 1.8;
+            overflow-y: auto;
+            font-family: 'Scheherazade', traditional arabic, sans-serif;
+        }
+
+        .dark-mode {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .dark-mode .notepad {
+            background: #34495e;
+            color: white;
+        }
+
+        .focus-mode .toolbar-container {
+            display: none;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: auto;
+            border-collapse: collapse;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            font-family: 'Scheherazade', traditional arabic, sans-serif;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-size: 32px;
+        }
+
+        td {
+            font-size: 25px;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #d1e7ff;
+            transition: 0.3s;
+        }
+
+        .doa {
+            margin-top: 20px;
+            font-weight: bold;
+            font-family: 'Scheherazade', Arial, sans-serif;
+            font-size: 25px;
+            line-height: 15px;
+            color: cyan;
+            text-shadow: 2px 2px 3px black;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="tahrik-title">PEGONOTE</div>
+
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <button onclick="toggleDarkMode()">🌘</button>
+            <button onclick="toggleFocusMode()">⛶</button>
+            <button onclick="saveText()">💾</button>
+            <a href="https://afhimna.github.io/tutorialtahrik/" target="_blank"><button>❔</button></a>
+            <a href="https://afhimna.github.io/gate/" target="_blank"><button>🔗</button></a>
+        </div>
+    </div>
+
+    <div id="notepad" class="notepad" contenteditable="true" placeholder="تكتب هنا..."></div>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th> ـٓ </th>
+                <th>ڮ</th>                
+                <th>ڤ</th>
+                <th>ۑ</th>
+                <th>چ</th>
+                <th>ڠ</th>
+            </tr>
+            <tr>
+                <td>Shift + 6</td>
+                <td>Shift + 5</td>
+                <td>Shift + 4</td>
+                <td>Shift + 3</td>
+                <td>Shift + 2</td>
+                <td>Shift + 1</td>
+            </tr>
+        </table>
+    </div>
+
+    <p class="doa">Manfaatkan dan semaikan doa pada founder Afhimna, segenap masyayekh, keluarga dan orang terdekatnya</p>
+    <p class="doa">🙏🏻😎🙏🏻</p>
+    <p class="copyright">© 2025 Afhimna Corp. All Rights Reserved.</p>
+
+    <script>
+        let historyStack = [];
+        let redoStack = [];
+        let notepad = document.getElementById("notepad");
+
+        function saveHistory() {
+            historyStack.push(notepad.innerHTML);
+            redoStack = [];
+        }
+
+        function undoText() {
+            if (document.queryCommandEnabled("undo")) {
+                document.execCommand("undo");
+            } else if (historyStack.length > 1) {
+                redoStack.push(historyStack.pop());
+                notepad.innerHTML = historyStack[historyStack.length - 1];
+            }
+        }
+
+        function redoText() {
+            if (document.queryCommandEnabled("redo")) {
+                document.execCommand("redo");
+            } else if (redoStack.length > 0) {
+                historyStack.push(redoStack.pop());
+                notepad.innerHTML = historyStack[historyStack.length - 1];
+            }
+        }
+
+        function saveText() {
+            let text = notepad.innerText;
+            let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "notepad_arab.txt";
+            link.click();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function toggleFocusMode() {
+            document.body.classList.toggle("focus-mode");
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey) {
+                switch (event.key.toLowerCase()) {
+                    case "z":
+                        event.preventDefault();
+                        undoText();
+                        break;
+                    case "y":
+                        event.preventDefault();
+                        redoText();
+                        break;
+                }
+            } else if (event.shiftKey) {
+                let keyMap = {
+                    "Digit1": "ڠ",
+                    "Digit2": "چ",
+                    "Digit3": "ۑ",
+                    "Digit4": "ڤ",
+                    "Digit5": "ڮ",
+                    "Digit6": "ٓ"
+                };
+
+                let char = keyMap[event.code];
+                if (char) {
+                    event.preventDefault();
+                    document.execCommand("insertText", false, char);
+                    saveHistory();
+                }
+            }
+        });
+
+        window.onload = function () {
+            let savedText = localStorage.getItem("savedText");
+            if (savedText) {
+                notepad.innerHTML = savedText;
+            }
+            saveHistory();
+        };
+    </script>
+</body>
+</html>
