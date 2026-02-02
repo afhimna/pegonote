@@ -131,10 +131,9 @@
 
         .doa {
             margin-top: 20px;
-            font-weight: bold;
             font-family: 'Scheherazade', Arial, sans-serif;
             font-size: 25px;
-            line-height: 15px;
+            line-height: 25px;
             color: cyan;
             text-shadow: 2px 2px 3px black;
         }
@@ -144,6 +143,72 @@
             font-size: 14px;
             color: #666;
         }
+        /* ===== SOWAR / SOCIAL ===== */
+.social-container{
+  margin-top:26px;
+  text-align:center;
+}
+
+.social-container p{
+  font-size:13px;
+  color:#bbb;
+  margin-bottom:14px;
+}
+
+.social-icons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:24px;
+}
+
+.social-icons a{
+  display:block;
+  outline:none;
+  text-decoration:none;
+}
+
+.social-icon{
+  width:52px;
+  height:52px;
+  padding:6px;
+  border-radius:14px;
+  background:rgba(255,255,255,.03);
+  opacity:.85;
+  transition:.35s ease;
+  display:block; /* FIX GITHUB PAGES */
+}
+
+.social-icon:hover{
+  transform:scale(1.18) translateY(-4px);
+  opacity:1;
+  filter:brightness(1.15);
+}
+
+.social-icon.ig:hover{
+  box-shadow:0 0 12px rgba(225,48,108,.8),0 0 25px rgba(253,29,29,.6);
+}
+.social-icon.wa:hover{
+  box-shadow:0 0 12px rgba(37,211,102,.8),0 0 25px rgba(37,211,102,.6);
+}
+
+.support-text{
+  margin-top:18px;
+  font-size:13px;
+  color:#ccc;
+}
+.support-text a{
+  color:#00e676;
+  font-weight:600;
+  text-decoration:none;
+}
+
+.copyright{
+  margin-top:10px;
+  font-size:11px;
+  letter-spacing:.6px;
+  color:rgba(255,255,255,.35);
+}
     </style>
 </head>
 <body>
@@ -184,7 +249,27 @@
 
     <p class="doa">Manfaatkan dan semaikan doa pada founder Afhimna, segenap masyayekh, keluarga dan orang terdekatnya</p>
     <p class="doa">🙏🏻😎🙏🏻</p>
-    <p class="copyright">© 2025 Afhimna Corp. All Rights Reserved.</p>
+
+<div class="social-container">
+    <p>Info lebih lanjut, hubungi kami:</p>
+    <div class="social-icons">
+        <a href="https://www.instagram.com/umarhamdan_a/" target="_blank">
+            <img src="https://res.cloudinary.com/dmecuyazc/image/upload/v1766738130/ig_nhlx8u.png" class="social-icon ig">
+        </a>
+        <a href="https://wa.me/62859106771139" target="_blank">
+            <img src="https://res.cloudinary.com/dmecuyazc/image/upload/v1766738128/wa_qpuube.png" class="social-icon wa">
+        </a>
+    </div>
+    <div class="support-text">
+        Berkenan mendukung kami? Silakan klik
+        <a href="https://www.google.com" target="_blank">di sini</a>.
+    </div>
+    <div class="copyright">
+        © 2025 Afhimna Dev. All Rights Reserved.
+    </div>
+</div>
+
+</div>
 
     <script>
         let historyStack = [];
